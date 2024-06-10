@@ -50,40 +50,37 @@ const BookAssignmentView = () => {
   const { loading, error, data } = useQuery(GET_BOOKS);
   const [searchTerm, setSearchTerm] = useState("");
   const [readingList, setReadingList] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(() => {
-    if (data) {
-      const booksWithImages = data.books.map((book) => {
-        const coverPhotoURL = book.coverPhotoURL || images[Math.floor(Math.random() * images.length)];
-        console.log(`Book: ${book.title}, Cover Photo URL: ${coverPhotoURL}`);
-        return {
-          ...book,
-          coverPhotoURL,
-        };
-      });
-      setSearchResults(booksWithImages);
-    }
+  const booksWithImages = useMemo(() => {
+    if (!data) return [];
+    return data.books.map((book, index) => {
+      const coverPhotoURL = book.coverPhotoURL || images[Math.floor(Math.random() * images.length)];
+      console.log(`Book: ${book.title}, Cover Photo URL: ${coverPhotoURL}`);
+      return {
+        ...book,
+        coverPhotoURL,
+        id: `${book.title}-${book.author}-${index}`, // Create a unique ID based on title, author, and index
+      };
+    });
   }, [data]);
 
   const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
+    setSearchTerm(event.target.value.trim().toLowerCase());
   };
 
   const filteredBooks = useMemo(() => {
-    if (!searchResults) return [];
-    return searchResults.filter((book) => 
-      book.title.toLowerCase().includes(searchTerm.toLowerCase())
+    return booksWithImages.filter((book) =>
+      book.title.toLowerCase().includes(searchTerm)
     );
-  }, [searchResults, searchTerm]);
+  }, [booksWithImages, searchTerm]);
 
   const addToReadingList = (book) => {
     setReadingList((prevList) => [...prevList, book]);
   };
 
-  const removeFromReadingList = (title) => {
+  const removeFromReadingList = (id) => {
     setReadingList((prevList) => {
-      const index = prevList.findIndex((book) => book.title === title);
+      const index = prevList.findIndex((book) => book.id === id);
       if (index !== -1) {
         return [...prevList.slice(0, index), ...prevList.slice(index + 1)];
       }
@@ -105,7 +102,7 @@ const BookAssignmentView = () => {
       />
       <List>
         {filteredBooks.map((book) => (
-          <ListItem key={book.title}>
+          <ListItem key={book.id}>
             <ListItemAvatar>
               <Avatar src={book.coverPhotoURL} />
             </ListItemAvatar>
@@ -124,7 +121,7 @@ const BookAssignmentView = () => {
         <h2>Reading List</h2>
         <List>
           {readingList.map((book) => (
-            <ListItem key={book.title}>
+            <ListItem key={book.id}>
               <ListItemAvatar>
                 <Avatar src={book.coverPhotoURL} />
               </ListItemAvatar>
@@ -132,7 +129,7 @@ const BookAssignmentView = () => {
               <Button
                 variant="contained"
                 color="secondary"
-                onClick={() => removeFromReadingList(book.title)}
+                onClick={() => removeFromReadingList(book.id)}
               >
                 Remove
               </Button>
