@@ -54,10 +54,14 @@ const BookAssignmentView = () => {
 
   useEffect(() => {
     if (data) {
-      const booksWithImages = data.books.map((book) => ({
-        ...book,
-        coverPhotoURL: book.coverPhotoURL || images[Math.floor(Math.random() * images.length)],
-      }));
+      const booksWithImages = data.books.map((book) => {
+        const coverPhotoURL = book.coverPhotoURL || images[Math.floor(Math.random() * images.length)];
+        console.log(`Book: ${book.title}, Cover Photo URL: ${coverPhotoURL}`);
+        return {
+          ...book,
+          coverPhotoURL,
+        };
+      });
       setSearchResults(booksWithImages);
     }
   }, [data]);
