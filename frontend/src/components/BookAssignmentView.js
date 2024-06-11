@@ -11,16 +11,8 @@ import {
   Avatar,
 } from "@mui/material";
 
-const GET_BOOKS = gql`
-  query Books {
-    books {
-      author
-      coverPhotoURL
-      readingLevel
-      title
-    }
-  }
-`;
+ import { GET_BOOKS  } from '../data/data';
+
 
 const BookAssignmentView = () => {
   const { loading, error, data } = useQuery(GET_BOOKS);
