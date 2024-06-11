@@ -11,17 +11,6 @@ import {
   Avatar,
 } from "@mui/material";
 
-import image1 from "../assets/image1.webp";
-import image2 from "../assets/image2.webp";
-import image3 from "../assets/image3.webp";
-import image4 from "../assets/image4.webp";
-import image5 from "../assets/image5.webp";
-import image6 from "../assets/image6.webp";
-import image7 from "../assets/image7.webp";
-import image8 from "../assets/image8.webp";
-import image9 from "../assets/image9.webp";
-import image10 from "../assets/image10.webp";
-
 const GET_BOOKS = gql`
   query Books {
     books {
@@ -33,19 +22,6 @@ const GET_BOOKS = gql`
   }
 `;
 
-const images = [
-  image1,
-  image2,
-  image3,
-  image4,
-  image5,
-  image6,
-  image7,
-  image8,
-  image9,
-  image10,
-];
-
 const BookAssignmentView = () => {
   const { loading, error, data } = useQuery(GET_BOOKS);
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,19 +30,19 @@ const BookAssignmentView = () => {
   const booksWithImages = useMemo(() => {
     if (!data) return [];
     return data.books.map((book, index) => {
-      const coverPhotoURL = book.coverPhotoURL || images[Math.floor(Math.random() * images.length)];
-      console.log(`Book: ${book.title}, Cover Photo URL: ${coverPhotoURL}`);
+      const coverPhotoURL = book.coverPhotoURL ? `/${book.coverPhotoURL}` : `/assets/default.webp`;
       return {
         ...book,
         coverPhotoURL,
-        id: `${book.title}-${book.author}-${index}`, // Create a unique ID based on title, author, and index
+        id: `${book.title}-${book.author}-${index}`,
       };
     });
   }, [data]);
 
   const handleSearch = (event) => {
-    setSearchTerm(event.target.value.trim().toLowerCase());
+    setSearchTerm(event.target.value.toLowerCase());
   };
+  
 
   const filteredBooks = useMemo(() => {
     return booksWithImages.filter((book) =>
@@ -79,17 +55,13 @@ const BookAssignmentView = () => {
   };
 
   const removeFromReadingList = (id) => {
-    setReadingList((prevList) => {
-      const index = prevList.findIndex((book) => book.id === id);
-      if (index !== -1) {
-        return [...prevList.slice(0, index), ...prevList.slice(index + 1)];
-      }
-      return prevList;
-    });
+    setReadingList((prevList) =>
+      prevList.filter((book) => book.id !== id)
+    );
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading books</p>;
+  if (error) return <p>Error loading books: {error.message}</p>;
 
   return (
     <div style={{ padding: "20px" }}>
