@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useQuery, gql } from "@apollo/client";
+import React, { useState,  useMemo } from "react";
+import { useQuery } from "@apollo/client";
 import {
   TextField,
   List,
