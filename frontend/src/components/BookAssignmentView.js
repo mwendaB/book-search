@@ -45,11 +45,13 @@ const BookAssignmentView = () => {
   
 
   const filteredBooks = useMemo(() => {
+    const trimmedSearchTerm = searchTerm.trim();
     return booksWithImages.filter((book) =>
-      book.title.toLowerCase().includes(searchTerm)
+      book.title.toLowerCase().includes(trimmedSearchTerm) &&
+      !readingList.some((readingBook) => readingBook.id === book.id)
     );
-  }, [booksWithImages, searchTerm]);
-
+  }, [booksWithImages, searchTerm, readingList]);
+  
   const addToReadingList = (book) => {
     setReadingList((prevList) => [...prevList, book]);
   };
