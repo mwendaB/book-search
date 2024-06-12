@@ -85,7 +85,7 @@ const BookAssignmentView = () => {
               }}
             >
               <ListItemAvatar>
-                <Avatar src={book.coverPhotoURL} sx={{ width: 56, height: 56 }} />
+                <Avatar src={book.coverPhotoURL} sx={{ width: 56, height: 56, marginRight: 1, }} />
               </ListItemAvatar>
               <ListItemText primary={book.title} secondary={book.author} />
               <Button
