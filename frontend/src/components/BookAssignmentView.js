@@ -91,11 +91,11 @@ const BookAssignmentView = () => {
               <Button
                 variant="contained"
                 sx={{
-                  backgroundColor: '#5ACCCC',
+                  backgroundColor: '#335c6e',
                   color: '#FFFFFF',
                   marginTop: 1,
                   '&:hover': {
-                    backgroundColor: '#5ACCCC',
+                    backgroundColor: '#335c6e',
                   },
                 }}
                 onClick={() => addToReadingList(book)}
@@ -131,11 +131,11 @@ const BookAssignmentView = () => {
                 <Button
                   variant="contained"
                   sx={{
-                    backgroundColor: '#FA4A00',
+                    backgroundColor: '#F76434',
                     color: '#FFFFFF',
                     marginTop: 1,
                     '&:hover': {
-                      backgroundColor: '#FA4A00',
+                      backgroundColor: '#F76434',
                     },
                   }}
                   onClick={() => removeFromReadingList(book.id)}

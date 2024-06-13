@@ -1,70 +1,117 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Book Assignment View
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+Book Assignment View is a React.js application that allows users to search for books, view detailed information, and manage a reading list. The app fetches book data using Apollo Client and displays it using Material-UI components.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Search for books by title.
+- Display book details including cover photo, title, and author.
+- Add books to a personalized reading list.
+- Remove books from the reading list.
+- Utilizes Apollo Client for GraphQL data fetching.
+- Styled with Material-UI for a responsive and modern UI.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+- React.js
+- Apollo Client
+- GraphQL
+- Material-UI
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+1. **Clone the repository:**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```sh
+   git clone https://github.com/mwendaB/book-assignment-view.git
+   cd book-assignment-view
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Install dependencies:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```sh
+   npm install
+   ```
 
-### `npm run eject`
+3. **Start the development server:**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```sh
+   npm start
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   The application will be available at `http://localhost:3000`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## GraphQL Server Setup
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Ensure that you have a GraphQL server running locally on `http://localhost:4000/` or update the URI in the Apollo Client setup if your server is hosted elsewhere.
 
-## Learn More
+## Usage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Search for Books:**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   Use the search bar to filter books by title.
 
-### Code Splitting
+2. **Add to Reading List:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   Click the "Add" button next to a book to add it to your reading list.
 
-### Analyzing the Bundle Size
+3. **Remove from Reading List:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   Click the "Remove" button next to a book in the reading list to remove it.
 
-### Making a Progressive Web App
+## Folder Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+book-assignment-view/
+├── public/
+├── src/
+│   ├── components/
+│   │   └── BookAssignmentView.js
+│   ├── data/
+│   │   └── data.js
+│   ├── App.js
+│   ├── index.js
+│   └── apolloClient.js
+├── .gitignore
+├── package.json
+├── README.md
+```
 
-### Advanced Configuration
+- **public/**: Public assets and HTML template.
+- **src/**: Source code directory.
+  - **components/**: React components.
+  - **data/**: GraphQL queries and data-related files.
+  - **App.js**: Main application component.
+  - **index.js**: Entry point of the application.
+  - **apolloClient.js**: Apollo Client setup.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Apollo Client Setup
 
-### Deployment
+The Apollo Client is configured in `src/apolloClient.js` as follows:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```javascript
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
-### `npm run build` fails to minify
+const client = new ApolloClient({
+  uri: 'http://localhost:4000/', 
+  cache: new InMemoryCache(),
+});
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+export default client;
+```
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure that your code follows the existing code style and includes relevant tests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+
+## Contact
+
+If you have any questions or feedback, feel free to contact us at [brianmwenda255@gmail.com].
+
