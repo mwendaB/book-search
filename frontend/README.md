@@ -26,8 +26,8 @@ Book Assignment View is a React.js application that allows users to search for b
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/mwendaB/book-assignment-view.git
-   cd book-assignment-view
+   git clone https://github.com/mwendaB/book-search.git
+   cd book-search
    ```
 
 2. **Install dependencies:**
@@ -65,7 +65,7 @@ Ensure that you have a GraphQL server running locally on `http://localhost:4000/
 ## Folder Structure
 
 ```
-book-assignment-view/
+book-search/
 ├── public/
 ├── src/
 │   ├── components/
